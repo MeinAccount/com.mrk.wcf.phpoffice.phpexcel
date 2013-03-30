@@ -46,7 +46,7 @@ class PHPExcel extends SingletonFactory {
 	 * @param	string		$filename
 	 * @param	string		$writerType
 	 */
-	public function save(PHPExcel $file, $filename, $writerType = 'Excel2007') {
+	public function save(\PHPExcel $file, $filename, $writerType = 'Excel2007') {
 		try {
 			$writer = PHPExcel_IOFactory::createWriter($file, $writerType);
 			$writer->save($filename);
