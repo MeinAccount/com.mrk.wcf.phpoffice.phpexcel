@@ -3,7 +3,6 @@ namespace wcf\system\phpoffice;
 use wcf\system\exception\SystemException;
 use wcf\system\SingletonFactory;
 use \PHPExcel_Exception;
-use \PHPExcel_IOFactory;
 use \PHPExcel_Settings;
 
 /**
@@ -26,42 +25,20 @@ class PHPExcel extends SingletonFactory {
 	}
 	
 	/**
-	 * Opens a file in PHPExcel
+	 * Wrapper for methods of PHPExcels IOFactory
 	 * 
-	 * @param	string	$filename
-	 * @return	PHPExcel
+	 * @param	string		$function
+	 * @param	array		$arguments
 	 */
-	public function open($filename) {
-		try {
-			return PHPExcel_IOFactory::load($filename);
-		} catch (PHPExcel_Exception $exception) {
-			$this->handleException($exception);
+	public function __call($function, $arguments) {
+		if (method_exists('PHPExcel_IOFactory', $function)) {
+			try {
+				return call_user_func_array(array('PHPExcel_IOFactory', $function), $arguments);
+			} catch (PHPExcel_Exception $exception) {
+				throw new SystemException($exception->getMessage(), $exception->getCode(), '', $exception);
+			}
+		} else {
+			throw new SystemException('Can not call file method ' . $function);
 		}
-	}
-	
-	/**
-	 * Saves a file
-	 * 
-	 * @param	PHPExcel	$file
-	 * @param	string		$filename
-	 * @param	string		$writerType
-	 */
-	public function save(\PHPExcel $file, $filename, $writerType = 'Excel2007') {
-		try {
-			$writer = PHPExcel_IOFactory::createWriter($file, $writerType);
-			$writer->save($filename);
-		} catch (PHPExcel_Exception $exception) {
-			$this->handleException($exception);
-		}
-	}
-	
-	/**
-	 * Handles an exception from PHPExcel
-	 * 
-	 * @param	PHPExcel_Exception	$exception
-	 * @throws	wcf\system\exception\SystemException
-	 */
-	protected function handleException(PHPExcel_Exception $exception) {
-		throw new SystemException($exception->getMessage(), $exception->getCode(), '', $exception);
 	}
 }
