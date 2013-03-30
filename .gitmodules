@@ -1,3 +1,6 @@
 [submodule "files/lib/system/api/phpoffice/phpexcel"]
 	path = files/lib/system/api/phpoffice/phpexcel
 	url = git://github.com/PHPOffice/PHPExcel.git
+[submodule "files/lib/system/api/tcpdf"]
+	path = files/lib/system/api/tcpdf
+	url = git://git.code.sf.net/p/tcpdf/code

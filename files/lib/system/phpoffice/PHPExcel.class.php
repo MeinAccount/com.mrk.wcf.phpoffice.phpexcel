@@ -2,6 +2,9 @@
 namespace wcf\system\phpoffice;
 use wcf\system\exception\SystemException;
 use wcf\system\SingletonFactory;
+use \PHPExcel_Exception;
+use \PHPExcel_IOFactory;
+use \PHPExcel_Settings;
 
 /**
  * PHPExcel implementation
@@ -17,6 +20,10 @@ class PHPExcel extends SingletonFactory {
 	 */
 	protected function init() {
 		require_once(WCF_DIR.'lib/system/api/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
+		
+		// init tcpdf libary for pdf file generation
+		var_dump(WCF_DIR.'lib/system/api/tcpdf/');
+		var_dump(PHPExcel_Settings::setPdfRenderer(PHPExcel_Settings::PDF_RENDERER_TCPDF, WCF_DIR.'lib/system/api/tcpdf/'));
 	}
 	
 	/**
@@ -27,8 +34,8 @@ class PHPExcel extends SingletonFactory {
 	 */
 	public function open($filename) {
 		try {
-			return \PHPExcel_IOFactory::load($filename);
-		} catch (\PHPExcel_Exception $exception) {
+			return PHPExcel_IOFactory::load($filename);
+		} catch (PHPExcel_Exception $exception) {
 			$this->handleException($exception);
 		}
 	}
@@ -36,15 +43,15 @@ class PHPExcel extends SingletonFactory {
 	/**
 	 * Saves a file
 	 * 
-	 * @param	\PHPExcel	$file
+	 * @param	PHPExcel	$file
 	 * @param	string		$filename
 	 * @param	string		$writerType
 	 */
 	public function save(\PHPExcel $file, $filename, $writerType = 'Excel2007') {
 		try {
-			$writer = \PHPExcel_IOFactory::createWriter($file, $writerType);
+			$writer = PHPExcel_IOFactory::createWriter($file, $writerType);
 			$writer->save($filename);
-		} catch (\PHPExcel_Exception $exception) {
+		} catch (PHPExcel_Exception $exception) {
 			$this->handleException($exception);
 		}
 	}
@@ -52,10 +59,10 @@ class PHPExcel extends SingletonFactory {
 	/**
 	 * Handles an exception from PHPExcel
 	 * 
-	 * @param	\PHPExcel_Exception	$exception
+	 * @param	PHPExcel_Exception	$exception
 	 * @throws	wcf\system\exception\SystemException
 	 */
-	protected function handleException(\PHPExcel_Exception $exception) {
+	protected function handleException(PHPExcel_Exception $exception) {
 		throw new SystemException($exception->getMessage(), $exception->getCode(), '', $exception);
 	}
 }
