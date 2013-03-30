@@ -22,8 +22,7 @@ class PHPExcel extends SingletonFactory {
 		require_once(WCF_DIR.'lib/system/api/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
 		
 		// init tcpdf libary for pdf file generation
-		var_dump(WCF_DIR.'lib/system/api/tcpdf/');
-		var_dump(PHPExcel_Settings::setPdfRenderer(PHPExcel_Settings::PDF_RENDERER_TCPDF, WCF_DIR.'lib/system/api/tcpdf/'));
+		PHPExcel_Settings::setPdfRenderer(PHPExcel_Settings::PDF_RENDERER_TCPDF, WCF_DIR.'lib/system/api/tcpdf/');
 	}
 	
 	/**
