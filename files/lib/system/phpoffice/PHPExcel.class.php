@@ -27,18 +27,18 @@ class PHPExcel extends SingletonFactory {
 	/**
 	 * Wrapper for methods of PHPExcels IOFactory
 	 * 
-	 * @param	string		$function
+	 * @param	string		$method
 	 * @param	array		$arguments
 	 */
-	public function __call($function, $arguments) {
-		if (method_exists('PHPExcel_IOFactory', $function)) {
+	public function __call($method, $arguments) {
+		if (method_exists('PHPExcel_IOFactory', $method)) {
 			try {
-				return call_user_func_array(array('PHPExcel_IOFactory', $function), $arguments);
+				return call_user_func_array(array('PHPExcel_IOFactory', $method), $arguments);
 			} catch (PHPExcel_Exception $exception) {
 				throw new SystemException($exception->getMessage(), $exception->getCode(), '', $exception);
 			}
 		} else {
-			throw new SystemException('Can not call file method ' . $function);
+			throw new SystemException('PHPExels IOFactory has no method '.$method);
 		}
 	}
 }
