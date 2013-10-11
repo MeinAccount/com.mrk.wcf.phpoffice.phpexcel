@@ -13,14 +13,18 @@
 		<mkdir dir="build" />
 	</target>
 
-	<target name="build" description="Generates the package archive.">
-		<tar destfile="files.tar" basedir="files" />
+	<target name="build" depends="prepare" description="Generates the package archive.">
+		<tar destfile="files.tar" longfile="gnu">
+			<tarfileset dir="files">
+				<exclude name="lib/system/api/phpoffice/phpexcel/Documentation/**" />
+			</tarfileset>
+		</tar>
 		
 		<tar destfile="build/com.mrk.wcf.phpoffice.phpexcel.tar">
 			<tarfileset dir="">
-				<include name="*.xml" />
+				<include name="package.xml" />
+				<include name="LICENSE" />
 				<include name="*.tar" />
-				<exclude name="build.xml" />
 			</tarfileset>
 		</tar>
 	</target>
