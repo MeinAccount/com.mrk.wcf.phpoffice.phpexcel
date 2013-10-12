@@ -17,6 +17,7 @@
 		<tar destfile="files.tar" longfile="gnu">
 			<tarfileset dir="files">
 				<exclude name="lib/system/api/phpoffice/phpexcel/Documentation/**" />
+				<exclude name="/lib/system/api/tcpdf/examples/**" />
 			</tarfileset>
 		</tar>
 		
