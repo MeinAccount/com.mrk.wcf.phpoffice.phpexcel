@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package name="com.mrk.wcf.phpoffice.phpexcel" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/package.xsd">
 	<packageinformation>
-		<packagename>PHPExcel libary</packagename>
-		<packagedescription>WCF integration of the PHPExcel libary</packagedescription>
+		<packagename>PHPExcel library</packagename>
+		<packagedescription>WCF integration of the PHPExcel library</packagedescription>
 		<packagedescription language="de">WCF Integration der PHPExcel Bibliothek</packagedescription>
-		<version>1.0.0</version>
-		<date>2014-02-07</date>
+		<version>1.0.1</version>
+		<date>2014-09-25</date>
 	</packageinformation>
 	
 	<authorinformation>
@@ -17,6 +17,10 @@
 	</requiredpackages>
 	
 	<instructions type="install">
+		<instruction type="file">files.tar</instruction>
+	</instructions>
+	
+	<instructions type="update" fromversion="1.0.0">
 		<instruction type="file">files.tar</instruction>
 	</instructions>
 </package>
